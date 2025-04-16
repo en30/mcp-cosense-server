@@ -6,17 +6,14 @@ A Model Context Protocol server that provides integration with Cosense (Scrapbox
 
 ### Tools
 
-- **cosense_list_page**
+- **cosense_authenticate**
+
+  - Launch Chrome and wait for authentication
+
+- **cosense_list_projects**
 
   - Lists all projects the user has access to
   - No inputs required
-
-- **cosense_create_page**
-
-  - Creates a new page in a specified project
-  - Inputs:
-    - `project` (string, required): Cosense project name
-    - `pageTitle` (string, required): Title for the new page
 
 - **cosense_retrieve_page**
 
@@ -69,18 +66,42 @@ The Cosense MCP server uses Puppeteer to automate browser interactions with Cose
 2. JavaScript execution within the page for operations like inserting and updating lines
 3. Export for AI functionality to retrieve page content with n-hop links
 
-## Configuration to use Cosense MCP Server
+## Setup and Installation
 
-Here's the configuration to use the Cosense MCP server:
+### Prerequisites
 
-### Git
+- Node.js (v16 or higher recommended)
+- Google Chrome installed (the server uses puppeteer-core which requires a Chrome installation)
 
-```console
-$ git fetch https://github.com/en30/mcp-server-cosense
-$ cd mcp-server-cosense
-$ npm install
-$ npm run build
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/en30/mcp-cosense-server.git
+cd mcp-cosense-server
+
+# Install dependencies
+npm install
+
+# Build the project
+npm run build
 ```
+
+### Running the Server
+
+```bash
+npm start
+```
+
+## Launch Chrome for AI
+
+```bash
+arch -arm64 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --remote-debugging-port=9222 --user-data-dir="chrome-for-ai"
+```
+
+## Configuration to use Cosense MCP Server with Claude Desktop
+
+Add the following configuration to your Claude Desktop configuration file at `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 ```json
 {
@@ -95,6 +116,20 @@ $ npm run build
 }
 ```
 
+Make sure to replace `/ABSOLUTE/PATH/TO/PARENT/FOLDER` with the absolute path to the location where you have installed the server.
+
+## Known Limitations
+
+- The server depends on the Cosense UI structure, so changes to the Cosense website might break functionality
+- Authentication is handled through cookies remembered by Chrome, so you may need to log in to Cosense when running the server for the first time
+- The n-hop link feature is a simplified implementation and might not follow all complex link relationships
+
 ## License
 
 This MCP server is licensed under the MIT License. This means you are free to use, modify, and distribute the software, subject to the terms and conditions of the MIT License.
+
+## References
+
+- [API - Cosense ヘルプ](https://scrapbox.io/help-jp/API)
+- [ページを作る - Cosense ヘルプ](https://scrapbox.io/help-jp/%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%92%E4%BD%9C%E3%82%8B#58ae7c9a97c29100005b886b)
+- [UserScript Page Edit API - 橋本商会](https://scrapbox.io/shokai/UserScript_Page_Edit_API)
