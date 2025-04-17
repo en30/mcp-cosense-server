@@ -87,18 +87,6 @@ npm install
 npm run build
 ```
 
-### Running the Server
-
-```bash
-npm start
-```
-
-## Launch Chrome for AI
-
-```bash
-arch -arm64 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --remote-debugging-port=9222 --user-data-dir="chrome-for-ai"
-```
-
 ## Configuration to use Cosense MCP Server with Claude Desktop
 
 Add the following configuration to your Claude Desktop configuration file at `~/Library/Application Support/Claude/claude_desktop_config.json`:
